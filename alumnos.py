@@ -78,46 +78,46 @@ class Alumnos:
 				with open('static/csv/alumnos.csv','r') as csvfile: #para abrir el archivo csv
 					reader = csv.DictReader(csvfile)
 					for row in reader:
-						if(matricula==row['matricula']): #compara la matricula ingresada con los datos del csv
+						if(matricula==row['matricula']): 
 							print(matricula)
-							resultA.append(row) #devuelve los datos si encuentra una coincidencia
+							resultA.append(row) 
 							resultAB['version']=version
-							resultAB['status']="200 ok"#por si todo sale bien
+							resultAB['status']="200 ok"
 							resultAB['alumnos']=resultA
 							break
 						else:
 							resultAB={}
-							resultAB['status']="matricula no encontrada" #por si no se encuentra 
+							resultAB['status']="matricula no encontrada" 
 				return resultAB 
-		except Exception as e: #Por si algo sale mal
+		except Exception as e: 
 			resultA={}
 			resultA['version']=version
 			resultA['status']="Error"
 			return json.dumps(resultA)
 
 
-#METODO PARA LA FUNCION DE INPUT
+# INPUT
 	@staticmethod
 	def actionInput(version,file,matricula,nombre,primer_apellido,segundo_apellido,carrera):
 		try:
 			resultA=[]
-			resultAIN=[] #lista que sirve para que los datos introducidos vayan cayendo ahi
+			resultAIN=[] 
 			resultAB={}
 			resultAIN.append(matricula)
 			resultAIN.append(nombre)
 			resultAIN.append(primer_apellido)
 			resultAIN.append(segundo_apellido)
 			resultAIN.append(carrera)
-			with open('static/csv/alumnos.csv','a',newline='') as csvfile: #para abrir el archivo csv
+			with open('static/csv/alumnos.csv','a',newline='') as csvfile: 
 				writer=csv.writer(csvfile)
-				# The writerow() method writes a row of data into the specified file
+				
 				writer.writerow(resultAIN)
 			with open('static/csv/alumnos.csv','r') as csvfile:
 				reader = csv.DictReader(csvfile)
 				for row in reader:
 					resultA.append(row)
 					resultAB['version']=version
-					resultAB['status']="200 ok" #si todo sale bien
+					resultAB['status']="200 ok" 
 					resultAB['alumnos']=resultA
 			return resultAB 
 		except Exception as e:
